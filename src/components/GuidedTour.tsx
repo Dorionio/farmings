@@ -192,29 +192,47 @@ export const GuidedTour: React.FC<GuidedTourProps> = ({
     
     if (isMobile) {
       if (spotlightRect) {
-        tooltipStyle = {
-          position: 'fixed',
-          left: '50%',
-          transform: 'translateX(-50%)',
-          top: `${Math.min(spotlightRect.bottom + 12, window.innerHeight - 260)}px`,
-          width: '90%',
-          maxWidth: '340px',
-          zIndex: 50
-        };
+        // If the targeted element is in the bottom half of the viewport, place the card above it
+        const placeAbove = spotlightRect.top > window.innerHeight / 2;
+        
+        if (placeAbove) {
+          tooltipStyle = {
+            position: 'fixed',
+            left: '50%',
+            transform: 'translateX(-50%)',
+            bottom: `${window.innerHeight - spotlightRect.top + 12}px`,
+            width: '92%',
+            maxWidth: '340px',
+            zIndex: 50
+          };
+        } else {
+          tooltipStyle = {
+            position: 'fixed',
+            left: '50%',
+            transform: 'translateX(-50%)',
+            top: `${spotlightRect.bottom + 12}px`,
+            width: '92%',
+            maxWidth: '340px',
+            zIndex: 50
+          };
+        }
       } else {
         tooltipStyle = {
           position: 'fixed',
           top: '50%',
           left: '50%',
           transform: 'translate(-50%, -50%)',
-          width: '90%',
+          width: '92%',
           maxWidth: '340px',
           zIndex: 50
         };
       }
     } else {
       if (spotlightRect) {
-        if (isRtl) {
+        // Check if there is enough room on the right side of the screen
+        const placeLeft = (spotlightRect.right + 340) > window.innerWidth;
+        
+        if (isRtl || placeLeft) {
           tooltipStyle = {
             position: 'fixed',
             right: `${window.innerWidth - spotlightRect.left + 16}px`,

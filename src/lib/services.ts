@@ -512,12 +512,14 @@ export const authService = {
 
   // Complete onboarding for users with missing profiles
   completeOnboarding: async (userId: string, email: string, name: string, orgName: string): Promise<UserProfile> => {
-    // 1. Create tenant organization
+    // 1. Create tenant organization with a 30-day trial end date
+    const trialEnd = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString();
     const { data: orgData, error: orgError } = await supabase
       .from('organizations')
       .insert({
         name: orgName,
-        owner_id: userId
+        owner_id: userId,
+        trial_end: trialEnd
       })
       .select()
       .single();
@@ -671,7 +673,7 @@ export const dbService = {
         stripeCustomerId: data.stripe_customer_id || '',
         stripeSubscriptionId: data.stripe_subscription_id || '',
         subscriptionStatus: (data.subscription_status || 'trialing') as any,
-        trialEnd: data.trial_end || '',
+        trialEnd: data.trial_end || new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(),
         currentPeriodEnd: data.current_period_end || ''
       };
       

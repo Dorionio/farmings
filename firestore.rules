@@ -1,0 +1,215 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ==========================================
+    // HELPER FUNCTIONS
+    // ==========================================
+
+    // Fetch the requesting user's profile document from the 'users' collection
+    function getUserData() {
+      return get(/databases/$(database)/documents/users/$(request.auth.uid)).data;
+    }
+
+    // Verify the user is authenticated
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    // Verify the user belongs to the specified organization ID
+    function isMemberOfOrg(orgId) {
+      return isAuthenticated() && getUserData().orgId == orgId;
+    }
+
+    // Verify the user is the owner of their organization
+    function isOrgOwner() {
+      return isAuthenticated() && getUserData().role == 'owner';
+    }
+
+    // Helper to check if a document's organization ID matches the user's organization ID
+    function matchesOrg(data) {
+      return isAuthenticated() && getUserData().orgId == data.orgId;
+    }
+
+    // ========================================================
+    // 1. CORE DATA COLLECTIONS (ORGANIZATION-ISOLATED)
+    // ========================================================
+    // Every read/write must match request.auth's organizationId.
+    // This applies to: animals, health records, boarding, breeding, and tasks.
+    // It prevents cross-tenant access, even if a user knows a document's ID.
+
+    // --- Animals ---
+    match /animals/{animalId} {
+      allow read: if matchesOrg(resource.data);
+      allow create: if matchesOrg(request.resource.data);
+      allow update: if matchesOrg(resource.data) && matchesOrg(request.resource.data);
+      allow delete: if matchesOrg(resource.data);
+    }
+
+    // --- Health Records (vaccinations, vet visits, medications, weights, and healthRecords) ---
+    match /vaccinations/{id} {
+      allow read: if matchesOrg(resource.data);
+      allow create: if matchesOrg(request.resource.data);
+      allow update: if matchesOrg(resource.data) && matchesOrg(request.resource.data);
+      allow delete: if matchesOrg(resource.data);
+    }
+
+    match /vet_visits/{id} {
+      allow read: if matchesOrg(resource.data);
+      allow create: if matchesOrg(request.resource.data);
+      allow update: if matchesOrg(resource.data) && matchesOrg(request.resource.data);
+      allow delete: if matchesOrg(resource.data);
+    }
+
+    match /medications/{id} {
+      allow read: if matchesOrg(resource.data);
+      allow create: if matchesOrg(request.resource.data);
+      allow update: if matchesOrg(resource.data) && matchesOrg(request.resource.data);
+      allow delete: if matchesOrg(resource.data);
+    }
+
+    match /weights/{id} {
+      allow read: if matchesOrg(resource.data);
+      allow create: if matchesOrg(request.resource.data);
+      allow update: if matchesOrg(resource.data) && matchesOrg(request.resource.data);
+      allow delete: if matchesOrg(resource.data);
+    }
+
+    match /healthRecords/{id} {
+      allow read: if matchesOrg(resource.data);
+      allow create: if matchesOrg(request.resource.data);
+      allow update: if matchesOrg(resource.data) && matchesOrg(request.resource.data);
+      allow delete: if matchesOrg(resource.data);
+    }
+
+    // --- Boarding (kennels and boarding) ---
+    match /kennels/{id} {
+      allow read: if matchesOrg(resource.data);
+      allow create: if matchesOrg(request.resource.data);
+      allow update: if matchesOrg(resource.data) && matchesOrg(request.resource.data);
+      allow delete: if matchesOrg(resource.data);
+    }
+
+    match /boarding/{id} {
+      allow read: if matchesOrg(resource.data);
+      allow create: if matchesOrg(request.resource.data);
+      allow update: if matchesOrg(resource.data) && matchesOrg(request.resource.data);
+      allow delete: if matchesOrg(resource.data);
+    }
+
+    // --- Breeding (heat cycles, mating records, pregnancy records, litters, and breeding) ---
+    match /heat_cycles/{id} {
+      allow read: if matchesOrg(resource.data);
+      allow create: if matchesOrg(request.resource.data);
+      allow update: if matchesOrg(resource.data) && matchesOrg(request.resource.data);
+      allow delete: if matchesOrg(resource.data);
+    }
+
+    match /mating_records/{id} {
+      allow read: if matchesOrg(resource.data);
+      allow create: if matchesOrg(request.resource.data);
+      allow update: if matchesOrg(resource.data) && matchesOrg(request.resource.data);
+      allow delete: if matchesOrg(resource.data);
+    }
+
+    match /pregnancy_records/{id} {
+      allow read: if matchesOrg(resource.data);
+      allow create: if matchesOrg(request.resource.data);
+      allow update: if matchesOrg(resource.data) && matchesOrg(request.resource.data);
+      allow delete: if matchesOrg(resource.data);
+    }
+
+    match /litters/{id} {
+      allow read: if matchesOrg(resource.data);
+      allow create: if matchesOrg(request.resource.data);
+      allow update: if matchesOrg(resource.data) && matchesOrg(request.resource.data);
+      allow delete: if matchesOrg(resource.data);
+    }
+
+    match /breeding/{id} {
+      allow read: if matchesOrg(resource.data);
+      allow create: if matchesOrg(request.resource.data);
+      allow update: if matchesOrg(resource.data) && matchesOrg(request.resource.data);
+      allow delete: if matchesOrg(resource.data);
+    }
+
+    // --- Tasks (care schedules, care logs, and tasks) ---
+    match /care_schedules/{id} {
+      allow read: if matchesOrg(resource.data);
+      allow create: if matchesOrg(request.resource.data);
+      allow update: if matchesOrg(resource.data) && matchesOrg(request.resource.data);
+      allow delete: if matchesOrg(resource.data);
+    }
+
+    match /care_logs/{id} {
+      allow read: if matchesOrg(resource.data);
+      allow create: if matchesOrg(request.resource.data);
+      allow update: if matchesOrg(resource.data) && matchesOrg(request.resource.data);
+      allow delete: if matchesOrg(resource.data);
+    }
+
+    match /tasks/{id} {
+      allow read: if matchesOrg(resource.data);
+      allow create: if matchesOrg(request.resource.data);
+      allow update: if matchesOrg(resource.data) && matchesOrg(request.resource.data);
+      allow delete: if matchesOrg(resource.data);
+    }
+
+    // ========================================================
+    // 2. STAFF AND INVITATIONS (ROLE-BASED & OWNER-ONLY WRITE)
+    // ========================================================
+
+    // --- Users Profiles (Conceptual Staff Directory) ---
+    // - Authenticated users can read profiles within their own organization.
+    // - Anyone can create their own profile (during sign-up or registration).
+    // - Only owners can update/delete other users' profiles.
+    // - Regular users can update their own profile, but cannot escalate their role or change organization ID.
+    match /users/{userId} {
+      allow read: if isAuthenticated() && (request.auth.uid == userId || getUserData().orgId == resource.data.orgId);
+      allow create: if isAuthenticated() && request.auth.uid == userId;
+      allow update: if isAuthenticated() && (
+        (isOrgOwner() && getUserData().orgId == resource.data.orgId) ||
+        (request.auth.uid == userId && 
+         request.resource.data.role == resource.data.role && 
+         request.resource.data.orgId == resource.data.orgId)
+      );
+      allow delete: if isAuthenticated() && isOrgOwner() && getUserData().orgId == resource.data.orgId;
+    }
+
+    // --- Fallback Conceptual Staff Collection ---
+    match /staff/{staffId} {
+      allow read: if isAuthenticated() && getUserData().orgId == resource.data.orgId;
+      allow write: if isOrgOwner() && getUserData().orgId == request.resource.data.orgId;
+    }
+
+    // --- Invitations (invites and invitations) ---
+    // - Anyone can read/verify invite details by code to register.
+    // - Only owners can write (create/delete) invites.
+    // - Non-owners can deactivate (update `active` to `false`) an invite code when consuming it.
+    match /invites/{inviteId} {
+      allow read: if true; 
+      allow create: if isOrgOwner();
+      allow update: if isOrgOwner() || (request.resource.data.active == false && resource.data.active == true);
+      allow delete: if isOrgOwner();
+    }
+
+    match /invitations/{inviteId} {
+      allow read: if true; 
+      allow create: if isOrgOwner();
+      allow update: if isOrgOwner() || (request.resource.data.active == false && resource.data.active == true);
+      allow delete: if isOrgOwner();
+    }
+
+    // ========================================================
+    // 3. ORGANIZATIONS COLLECTION
+    // ========================================================
+    // - Authenticated users can create their organization during signup, matching their auth UID as ownerId.
+    // - Reading or updating requires matching the ownerId or being a member of the organization.
+    match /organizations/{orgId} {
+      allow read: if isAuthenticated() && (resource.data.ownerId == request.auth.uid || getUserData().orgId == orgId);
+      allow create: if isAuthenticated() && request.resource.data.ownerId == request.auth.uid;
+      allow update: if isAuthenticated() && getUserData().orgId == orgId && isOrgOwner();
+      allow delete: if isAuthenticated() && resource.data.ownerId == request.auth.uid;
+    }
+  }
+}

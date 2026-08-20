@@ -115,6 +115,8 @@ export const GuidedTour: React.FC<GuidedTourProps> = ({
 }) => {
   const [currentStep, setCurrentStep] = useState(0);
   const [spotlightRect, setSpotlightRect] = useState<DOMRect | null>(null);
+  const [windowWidth, setWindowWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 1024);
+  const [windowHeight, setWindowHeight] = useState(typeof window !== 'undefined' ? window.innerHeight : 768);
 
   // Filter steps based on role
   const activeSteps = steps.filter(s => s.targetId !== 'tour-nav-staff' || role === 'owner');
@@ -130,6 +132,9 @@ export const GuidedTour: React.FC<GuidedTourProps> = ({
     }
 
     const updateSpotlight = () => {
+      setWindowWidth(window.innerWidth);
+      setWindowHeight(window.innerHeight);
+      
       const step = activeSteps[currentStep];
       if (!step) return;
 
@@ -188,31 +193,33 @@ export const GuidedTour: React.FC<GuidedTourProps> = ({
   // Compute absolute tooltip styling dynamically next to spotlight bounding client rect
   let tooltipStyle: React.CSSProperties = {};
   if (typeof window !== 'undefined') {
-    const isMobile = window.innerWidth < 1024;
+    const isMobile = windowWidth < 1024;
     
     if (isMobile) {
       if (spotlightRect) {
-        // If the targeted element is in the bottom half of the viewport, place the card above it
-        const placeAbove = spotlightRect.top > window.innerHeight / 2;
+        // If the targeted element is in the bottom half of the screen, place the card at the top
+        const placeAbove = spotlightRect.top > windowHeight / 2;
         
         if (placeAbove) {
           tooltipStyle = {
             position: 'fixed',
-            left: '50%',
-            transform: 'translateX(-50%)',
-            bottom: `${window.innerHeight - spotlightRect.top + 12}px`,
+            left: '4%',
+            right: '4%',
+            top: '16px',
             width: '92%',
-            maxWidth: '340px',
+            maxWidth: '350px',
+            margin: '0 auto',
             zIndex: 50
           };
         } else {
           tooltipStyle = {
             position: 'fixed',
-            left: '50%',
-            transform: 'translateX(-50%)',
-            top: `${spotlightRect.bottom + 12}px`,
+            left: '4%',
+            right: '4%',
+            bottom: '16px',
             width: '92%',
-            maxWidth: '340px',
+            maxWidth: '350px',
+            margin: '0 auto',
             zIndex: 50
           };
         }
@@ -223,20 +230,20 @@ export const GuidedTour: React.FC<GuidedTourProps> = ({
           left: '50%',
           transform: 'translate(-50%, -50%)',
           width: '92%',
-          maxWidth: '340px',
+          maxWidth: '350px',
           zIndex: 50
         };
       }
     } else {
       if (spotlightRect) {
         // Check if there is enough room on the right side of the screen
-        const placeLeft = (spotlightRect.right + 340) > window.innerWidth;
+        const placeLeft = (spotlightRect.right + 340) > windowWidth;
         
         if (isRtl || placeLeft) {
           tooltipStyle = {
             position: 'fixed',
-            right: `${window.innerWidth - spotlightRect.left + 16}px`,
-            top: `${Math.min(spotlightRect.top, window.innerHeight - 240)}px`,
+            right: `${windowWidth - spotlightRect.left + 16}px`,
+            top: `${Math.min(spotlightRect.top, windowHeight - 240)}px`,
             width: '320px',
             zIndex: 50
           };
@@ -244,7 +251,7 @@ export const GuidedTour: React.FC<GuidedTourProps> = ({
           tooltipStyle = {
             position: 'fixed',
             left: `${spotlightRect.right + 16}px`,
-            top: `${Math.min(spotlightRect.top, window.innerHeight - 240)}px`,
+            top: `${Math.min(spotlightRect.top, windowHeight - 240)}px`,
             width: '320px',
             zIndex: 50
           };
@@ -287,10 +294,10 @@ export const GuidedTour: React.FC<GuidedTourProps> = ({
       {/* FLOATING CARD */}
       <div 
         style={tooltipStyle}
-        className="bg-white text-slate-900 border border-slate-100 shadow-2xl rounded-2xl p-5 z-50 flex flex-col space-y-4 animate-fade-in text-xs ltr:text-left rtl:text-right"
+        className="bg-white text-slate-900 border border-slate-100 shadow-2xl rounded-2xl p-4 sm:p-5 z-50 flex flex-col space-y-3 sm:space-y-4 animate-fade-in text-xs ltr:text-left rtl:text-right"
       >
-        <div className="flex items-center justify-between border-b border-slate-100 pb-2.5">
-          <h4 className="font-extrabold text-sm text-emerald-900">{title}</h4>
+        <div className="flex items-center justify-between border-b border-slate-100 pb-2">
+          <h4 className="font-extrabold text-xs sm:text-sm text-emerald-900">{title}</h4>
           <button 
             onClick={handleComplete} 
             className="text-slate-400 hover:text-slate-600 transition-colors p-0.5 rounded-lg hover:bg-slate-50 cursor-pointer"
@@ -299,30 +306,30 @@ export const GuidedTour: React.FC<GuidedTourProps> = ({
           </button>
         </div>
 
-        <p className="text-slate-600 leading-relaxed font-medium">
+        <p className="text-slate-600 leading-relaxed font-medium text-[11px] sm:text-xs">
           {desc}
         </p>
 
         {/* CONTROLS */}
-        <div className="flex items-center justify-between border-t border-slate-100 pt-3 text-[10px] font-bold">
+        <div className="flex items-center justify-between border-t border-slate-100 pt-2.5 text-[9px] sm:text-[10px] font-bold">
           <span className="text-slate-400">
             {currentStep + 1} / {activeSteps.length}
           </span>
           
-          <div className="flex items-center space-x-2 rtl:space-x-reverse">
+          <div className="flex items-center space-x-1.5 sm:space-x-2 rtl:space-x-reverse">
             {currentStep > 0 && (
               <button
                 onClick={handlePrev}
-                className="flex items-center px-2.5 py-1.5 border border-slate-200 rounded-lg text-slate-600 hover:bg-slate-50 transition-colors cursor-pointer"
+                className="flex items-center px-2 py-1 sm:px-2.5 sm:py-1.5 border border-slate-200 rounded-lg text-slate-600 hover:bg-slate-50 transition-colors cursor-pointer whitespace-nowrap"
               >
-                <ChevronLeft className="h-3.5 w-3.5 mr-1 ltr:mr-1 rtl:ml-1" />
+                <ChevronLeft className="h-3.5 w-3.5 mr-0.5 ltr:mr-0.5 rtl:ml-0.5" />
                 {language === 'ar' ? 'السابق' : language === 'es' ? 'Anterior' : language === 'fr' ? 'Précédent' : 'Back'}
               </button>
             )}
             
             <button
               onClick={handleNext}
-              className="flex items-center px-3 py-1.5 bg-emerald-800 hover:bg-emerald-700 text-white rounded-lg shadow-sm transition-colors cursor-pointer"
+              className="flex items-center px-2.5 py-1 sm:px-3 sm:py-1.5 bg-emerald-800 hover:bg-emerald-700 text-white rounded-lg shadow-sm transition-colors cursor-pointer whitespace-nowrap"
             >
               <span>
                 {currentStep === activeSteps.length - 1 
@@ -331,7 +338,7 @@ export const GuidedTour: React.FC<GuidedTourProps> = ({
                 }
               </span>
               {currentStep < activeSteps.length - 1 && (
-                <ChevronRight className="h-3.5 w-3.5 ml-1 ltr:ml-1 rtl:mr-1" />
+                <ChevronRight className="h-3.5 w-3.5 ml-0.5 ltr:ml-0.5 rtl:mr-0.5" />
               )}
             </button>
           </div>

@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '@/context/AuthContext';
 import { useLanguage } from '@/context/LanguageContext';
-import { User, Phone, Mail, Shield, Image, CheckCircle, Save } from 'lucide-react';
+import { User, Phone, Mail, Shield, Image, CheckCircle, Save, FileText } from 'lucide-react';
 
 export default function ProfilePage() {
   const { user, updateProfile } = useAuth();
@@ -69,47 +69,68 @@ export default function ProfilePage() {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
         
-        {/* LEFT COLUMN: AVATAR CARD */}
-        <div className="lg:col-span-1 bg-white p-6 rounded-2xl border border-slate-100 shadow-sm flex flex-col items-center text-center space-y-4">
-          <div className="relative group">
-            {photoUrl ? (
-              <img 
-                src={photoUrl} 
-                alt={name} 
-                className="h-28 w-28 rounded-3xl object-cover shadow-md border-2 border-emerald-500/10"
-                onError={(e) => {
-                  // Fallback if image fails to load
-                  (e.target as any).src = `https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(name)}`;
-                }}
-              />
-            ) : (
-              <div className="h-28 w-28 rounded-3xl bg-emerald-50 text-emerald-800 flex items-center justify-center font-bold text-3xl border border-emerald-100/50 shadow-inner">
-                {name.charAt(0).toUpperCase()}
-              </div>
-            )}
-          </div>
-          <div>
-            <h3 className="font-bold text-slate-900 text-base">{name}</h3>
-            <span className={`inline-flex items-center mt-1.5 px-2.5 py-0.5 rounded-md font-bold text-[10px] uppercase tracking-wider ${
-              user.role === 'owner' 
-                ? 'bg-purple-50 text-purple-700 border border-purple-100'
-                : 'bg-emerald-50 text-emerald-700 border border-emerald-100'
-            }`}>
-              <Shield className="h-3 w-3 mr-1 ltr:mr-1 rtl:ml-1" />
-              {user.role === 'owner' ? t('nav_org') : t('staff_role_staff')}
-            </span>
-          </div>
-          <div className="w-full border-t border-slate-100 pt-4 text-left text-xs space-y-2.5 text-slate-500">
-            <div className="flex items-center space-x-2">
-              <Mail className="h-3.5 w-3.5 text-slate-400" />
-              <span className="truncate">{user.email}</span>
+        {/* LEFT COLUMN: AVATAR CARD & RESOURCES */}
+        <div className="lg:col-span-1 space-y-6">
+          {/* AVATAR CARD */}
+          <div className="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm flex flex-col items-center text-center space-y-4">
+            <div className="relative group">
+              {photoUrl ? (
+                <img 
+                  src={photoUrl} 
+                  alt={name} 
+                  className="h-28 w-28 rounded-3xl object-cover shadow-md border-2 border-emerald-500/10"
+                  onError={(e) => {
+                    // Fallback if image fails to load
+                    (e.target as any).src = `https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(name)}`;
+                  }}
+                />
+              ) : (
+                <div className="h-28 w-28 rounded-3xl bg-emerald-50 text-emerald-800 flex items-center justify-center font-bold text-3xl border border-emerald-100/50 shadow-inner">
+                  {name.charAt(0).toUpperCase()}
+                </div>
+              )}
             </div>
-            {phone && (
+            <div>
+              <h3 className="font-bold text-slate-900 text-base">{name}</h3>
+              <span className={`inline-flex items-center mt-1.5 px-2.5 py-0.5 rounded-md font-bold text-[10px] uppercase tracking-wider ${
+                user.role === 'owner' 
+                  ? 'bg-purple-50 text-purple-700 border border-purple-100'
+                  : 'bg-emerald-50 text-emerald-700 border border-emerald-100'
+              }`}>
+                <Shield className="h-3 w-3 mr-1 ltr:mr-1 rtl:ml-1" />
+                {user.role === 'owner' ? t('nav_org') : t('staff_role_staff')}
+              </span>
+            </div>
+            <div className="w-full border-t border-slate-100 pt-4 text-left text-xs space-y-2.5 text-slate-500">
               <div className="flex items-center space-x-2">
-                <Phone className="h-3.5 w-3.5 text-slate-400" />
-                <span>{phone}</span>
+                <Mail className="h-3.5 w-3.5 text-slate-400" />
+                <span className="truncate">{user.email}</span>
               </div>
-            )}
+              {phone && (
+                <div className="flex items-center space-x-2">
+                  <Phone className="h-3.5 w-3.5 text-slate-400" />
+                  <span>{phone}</span>
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* SYSTEM ANALYSIS PDF DOWNLOAD CARD */}
+          <div className="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm flex flex-col space-y-4 text-slate-700">
+            <h3 className="font-extrabold text-slate-900 text-xs flex items-center">
+              <FileText className="h-4.5 w-4.5 text-emerald-800 mr-2" />
+              Business & Operations Report
+            </h3>
+            <p className="text-[11px] text-slate-500 leading-relaxed font-semibold">
+              Download the complete system analysis detailing what operational challenges this app solves and how it optimizes kennel/breeding workflows.
+            </p>
+            <a 
+              href="/dorionanima_analysis.pdf" 
+              download="dorionanima_analysis.pdf"
+              className="w-full inline-flex justify-center items-center py-2.5 px-4 border border-slate-200 hover:border-emerald-700 hover:bg-emerald-50/20 text-slate-700 hover:text-emerald-900 rounded-xl shadow-xs text-xs font-bold transition-all cursor-pointer"
+            >
+              Download System PDF
+            </a>
           </div>
         </div>
 

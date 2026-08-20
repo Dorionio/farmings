@@ -30,7 +30,7 @@ export default function BillingSettings() {
     if (typeof window !== 'undefined') {
       const params = new URLSearchParams(window.location.search);
       if (params.get('checkout_success')) {
-        setSuccessMsg(t('billing_success_checkout') || 'Subscription successfully set up! Your 14-day free trial has begun.');
+        setSuccessMsg(t('billing_success_checkout') || 'Subscription successfully set up! Your 1-month free trial has begun.');
         // Clean params
         window.history.replaceState({}, '', window.location.pathname);
       } else if (params.get('checkout_cancel')) {
@@ -208,7 +208,7 @@ export default function BillingSettings() {
               {trialDaysLeft > 0 ? `${trialDaysLeft} Days Remaining in Free Trial` : 'Free Trial Has Ended'}
             </h3>
             <p className="text-[11px] text-purple-200 font-semibold">
-              You are currently utilizing DorionAnima SaaS Standard standard package features free for 14 days. Add a payment method to ensure continuous service.
+              You are currently utilizing DorionAnima SaaS Standard standard package features free for 1 month. Add a payment method to ensure continuous service.
             </p>
           </div>
           <div className="shrink-0 flex items-center space-x-2">

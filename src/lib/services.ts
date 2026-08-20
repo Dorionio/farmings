@@ -701,7 +701,7 @@ export const dbService = {
           stripeCustomerId: '',
           stripeSubscriptionId: '',
           subscriptionStatus: 'trialing',
-          trialEnd: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000).toISOString(),
+          trialEnd: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(),
           currentPeriodEnd: ''
         };
         return localOrg;
@@ -715,7 +715,7 @@ export const dbService = {
         stripeCustomerId: '',
         stripeSubscriptionId: '',
         subscriptionStatus: 'trialing',
-        trialEnd: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000).toISOString(),
+        trialEnd: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(),
         currentPeriodEnd: ''
       };
     }
@@ -769,7 +769,7 @@ export const dbService = {
           stripeCustomerId: '',
           stripeSubscriptionId: '',
           subscriptionStatus: 'trialing',
-          trialEnd: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000).toISOString(),
+          trialEnd: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(),
           currentPeriodEnd: ''
         };
         const updated = { ...currentLocal, ...updates };

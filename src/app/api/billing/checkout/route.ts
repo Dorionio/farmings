@@ -70,7 +70,7 @@ export async function POST(req: Request) {
       cancel_url: `${redirectOrigin}/billing?checkout_cancel=true`,
     };
 
-    // Only apply trial period to Stripe if there is trial time left from the 14 days
+    // Only apply trial period to Stripe if there is trial time left from the 30 days
     if (trialDaysRemaining > 0) {
       sessionOptions.subscription_data = {
         trial_period_days: trialDaysRemaining,

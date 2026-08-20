@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS organizations (
     stripe_customer_id TEXT,
     stripe_subscription_id TEXT,
     subscription_status TEXT DEFAULT 'trialing',
-    trial_end TIMESTAMPTZ,
+    trial_end TIMESTAMPTZ DEFAULT (now() + interval '30 days'),
     current_period_end TIMESTAMPTZ,
     created_at TIMESTAMPTZ DEFAULT now()
 );

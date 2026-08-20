@@ -302,7 +302,7 @@ export default function LandingPage() {
               One Flat Plan. Unlimited Power.
             </h2>
             <p className="mt-4 text-slate-400 text-sm">
-              Try DorionAnima SaaS Standard free for 14 days. No risk, cancel online anytime.
+              Try DorionAnima SaaS Standard free for 1 month. No risk, cancel online anytime.
             </p>
           </div>
 
@@ -340,10 +340,10 @@ export default function LandingPage() {
                   onClick={() => handleNavigate('signup')} 
                   className="w-full py-3.5 bg-gradient-to-r from-emerald-400 to-teal-300 hover:from-emerald-300 hover:to-teal-200 text-slate-950 font-black rounded-2xl transition-all shadow-md text-xs tracking-wide cursor-pointer"
                 >
-                  Start Your 14-Day Free Trial
+                  Start Your 1-Month Free Trial
                 </button>
                 <p className="text-center text-[10px] text-slate-500 font-bold uppercase mt-2.5 tracking-wider">
-                  Payment method required at signup &bull; No charge for 14 days
+                  Payment method required at signup &bull; No charge for 1 month
                 </p>
               </div>
             </div>

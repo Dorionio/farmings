@@ -35,15 +35,15 @@ export default function LandingPage() {
     <div className="min-h-screen bg-slate-900 text-slate-100 selection:bg-emerald-500 selection:text-slate-900 font-sans antialiased overflow-x-hidden">
       {/* NAVBAR */}
       <nav className="border-b border-slate-800/80 bg-slate-900/90 backdrop-blur-md sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16 items-center">
-            <div className="flex items-center space-x-3 cursor-pointer" onClick={() => router.push('/')}>
-              <div className="p-2 bg-emerald-600 rounded-xl shadow-lg shadow-emerald-500/10">
-                <Dog className="h-6 w-6 text-slate-100" />
+            <div className="flex items-center space-x-2 sm:space-x-3 cursor-pointer" onClick={() => router.push('/')}>
+              <div className="p-1.5 sm:p-2 bg-emerald-600 rounded-xl shadow-lg shadow-emerald-500/10">
+                <Dog className="h-5.5 w-5.5 sm:h-6 sm:w-6 text-slate-100" />
               </div>
               <div>
-                <span className="text-xl font-bold tracking-tight text-white block leading-none">DorionAnima SaaS</span>
-                <span className="text-[9px] text-emerald-400 font-bold uppercase tracking-wider mt-0.5 block">Kennel OS</span>
+                <span className="text-sm sm:text-xl font-bold tracking-tight text-white block leading-none">DorionAnima SaaS</span>
+                <span className="text-[8px] sm:text-[9px] text-emerald-400 font-bold uppercase tracking-wider mt-0.5 block">Kennel OS</span>
               </div>
             </div>
 
@@ -53,26 +53,26 @@ export default function LandingPage() {
               <a href="#pricing" className="hover:text-white transition-colors">Pricing</a>
             </div>
 
-            <div className="flex items-center space-x-4">
+            <div className="flex items-center space-x-2 sm:space-x-4">
               {user ? (
                 <button
                   onClick={() => router.push('/dashboard')}
-                  className="inline-flex items-center justify-center px-4 py-2 text-sm font-semibold rounded-xl text-white bg-emerald-600 hover:bg-emerald-500 shadow-md shadow-emerald-500/10 transition-all cursor-pointer"
+                  className="inline-flex items-center justify-center px-3 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm font-semibold rounded-xl text-white bg-emerald-600 hover:bg-emerald-500 shadow-md shadow-emerald-500/10 transition-all cursor-pointer"
                 >
                   Dashboard
-                  <ChevronRight className="ml-1.5 h-4 w-4" />
+                  <ChevronRight className="ml-1.5 h-3.5 w-3.5" />
                 </button>
               ) : (
                 <>
                   <button
                     onClick={() => handleNavigate('signin')}
-                    className="text-sm font-semibold text-slate-300 hover:text-white transition-colors cursor-pointer"
+                    className="text-xs sm:text-sm font-semibold text-slate-300 hover:text-white transition-colors cursor-pointer px-1 py-1"
                   >
                     Sign In
                   </button>
                   <button
                     onClick={() => handleNavigate('signup')}
-                    className="inline-flex items-center justify-center px-4 py-2 text-sm font-semibold rounded-xl text-white bg-emerald-600 hover:bg-emerald-500 shadow-md shadow-emerald-500/10 transition-all cursor-pointer"
+                    className="inline-flex items-center justify-center px-2.5 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm font-semibold rounded-xl text-white bg-emerald-600 hover:bg-emerald-500 shadow-md shadow-emerald-500/10 transition-all cursor-pointer whitespace-nowrap"
                   >
                     Register Biz
                   </button>
@@ -84,76 +84,76 @@ export default function LandingPage() {
       </nav>
 
       {/* HERO SECTION */}
-      <section className="relative pt-20 pb-24 md:pt-32 md:pb-36 overflow-hidden">
+      <section className="relative pt-10 pb-16 md:pt-32 md:pb-36 overflow-hidden">
         {/* Colorful blobs */}
         <div className="absolute top-1/4 left-1/10 w-96 h-96 bg-emerald-600/10 rounded-full blur-3xl -z-10" />
         <div className="absolute top-1/3 right-1/10 w-96 h-96 bg-indigo-600/10 rounded-full blur-3xl -z-10" />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="inline-flex items-center space-x-2 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 px-3.5 py-1.5 rounded-full text-xs font-semibold mb-6 animate-pulse">
-            <Sparkles className="h-3.5 w-3.5" />
+          <div className="inline-flex items-center space-x-2 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full text-[10px] sm:text-xs font-semibold mb-4 sm:mb-6 animate-pulse">
+            <Sparkles className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
             <span>Powered by Supabase + Row Level Security</span>
           </div>
 
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-white max-w-4xl mx-auto leading-tight">
+          <h1 className="text-3xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-white max-w-4xl mx-auto leading-tight">
             Smarter Kennel Boarding & <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-300">Breeding Operations</span>
           </h1>
 
-          <p className="mt-6 text-base sm:text-lg text-slate-300 max-w-2xl mx-auto leading-relaxed">
+          <p className="mt-4 sm:mt-6 text-sm sm:text-lg text-slate-300 max-w-2xl mx-auto leading-relaxed">
             Complete management software built for professional animal facilities. Track boarding guests, schedule chores checklists, log vaccinations, and automate pregnancy calculations in one secure system.
           </p>
 
-          <div className="mt-10 flex flex-col sm:flex-row justify-center items-center gap-4">
+          <div className="mt-6 sm:mt-10 flex flex-col sm:flex-row justify-center items-center gap-3 sm:gap-4">
             <button
               onClick={() => handleNavigate('signup')}
-              className="w-full sm:w-auto inline-flex items-center justify-center px-6 py-3.5 text-base font-bold rounded-xl text-slate-900 bg-gradient-to-r from-emerald-400 to-teal-300 hover:from-emerald-300 hover:to-teal-200 shadow-xl shadow-emerald-500/10 hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer"
+              className="w-full sm:w-auto inline-flex items-center justify-center px-5 py-3 sm:px-6 sm:py-3.5 text-sm sm:text-base font-bold rounded-xl text-slate-900 bg-gradient-to-r from-emerald-400 to-teal-300 hover:from-emerald-300 hover:to-teal-200 shadow-xl shadow-emerald-500/10 hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer"
             >
               Get Started Free
-              <ArrowRight className="ml-2 h-5 w-5" />
+              <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
             </button>
             <a
               href="#features"
-              className="w-full sm:w-auto inline-flex items-center justify-center px-6 py-3.5 text-base font-bold rounded-xl text-slate-300 bg-slate-800/80 hover:bg-slate-800 border border-slate-700/50 hover:text-white transition-all cursor-pointer"
+              className="w-full sm:w-auto inline-flex items-center justify-center px-5 py-3 sm:px-6 sm:py-3.5 text-sm sm:text-base font-bold rounded-xl text-slate-300 bg-slate-800/80 hover:bg-slate-800 border border-slate-700/50 hover:text-white transition-all cursor-pointer"
             >
               View Features
             </a>
           </div>
 
           {/* MOCK PREVIEW DASHBOARD */}
-          <div className="mt-16 md:mt-20 max-w-5xl mx-auto bg-slate-800/40 border border-slate-700/60 p-4 sm:p-6 rounded-2xl shadow-2xl relative">
-            <div className="flex items-center space-x-2 border-b border-slate-700/60 pb-4 mb-6">
-              <div className="w-3 h-3 bg-red-500 rounded-full" />
-              <div className="w-3 h-3 bg-yellow-500 rounded-full" />
-              <div className="w-3 h-3 bg-green-500 rounded-full" />
-              <span className="text-xs text-slate-500 font-mono ml-2">DorionAnima SaaS Live Dashboard Preview</span>
+          <div className="mt-10 sm:mt-20 max-w-5xl mx-auto bg-slate-800/40 border border-slate-700/60 p-3.5 sm:p-6 rounded-2xl shadow-2xl relative">
+            <div className="flex items-center space-x-1.5 border-b border-slate-700/60 pb-3 mb-4 sm:mb-6">
+              <div className="w-2.5 h-2.5 bg-red-500 rounded-full" />
+              <div className="w-2.5 h-2.5 bg-yellow-500 rounded-full" />
+              <div className="w-2.5 h-2.5 bg-green-500 rounded-full" />
+              <span className="text-[10px] sm:text-xs text-slate-500 font-mono ml-2">DorionAnima SaaS Live Dashboard Preview</span>
             </div>
 
             {/* Simulated UI Widgets */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-              <div className="bg-slate-900/60 p-4 rounded-xl border border-slate-800 text-left">
-                <div className="flex items-center justify-between text-slate-400 text-xs font-semibold mb-2">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
+              <div className="bg-slate-900/60 p-3 sm:p-4 rounded-xl border border-slate-800 text-left">
+                <div className="flex items-center justify-between text-slate-400 text-[10px] sm:text-xs font-semibold mb-1.5">
                   <span>ACTIVE BOARDING</span>
                   <Building className="h-4 w-4 text-emerald-400" />
                 </div>
-                <div className="text-2xl font-bold text-white">12 Animals</div>
+                <div className="text-xl sm:text-2xl font-bold text-white">12 Animals</div>
                 <div className="text-[10px] text-emerald-400 font-semibold mt-1">4 Check-outs scheduled today</div>
               </div>
 
-              <div className="bg-slate-900/60 p-4 rounded-xl border border-slate-800 text-left">
-                <div className="flex items-center justify-between text-slate-400 text-xs font-semibold mb-2">
+              <div className="bg-slate-900/60 p-3 sm:p-4 rounded-xl border border-slate-800 text-left">
+                <div className="flex items-center justify-between text-slate-400 text-[10px] sm:text-xs font-semibold mb-1.5">
                   <span>ACTIVE HEAT CYCLES</span>
                   <Heart className="h-4 w-4 text-rose-400" />
                 </div>
-                <div className="text-2xl font-bold text-white">3 Females</div>
+                <div className="text-xl sm:text-2xl font-bold text-white">3 Females</div>
                 <div className="text-[10px] text-rose-400 font-semibold mt-1">Ready for mating checks</div>
               </div>
 
-              <div className="bg-slate-900/60 p-4 rounded-xl border border-slate-800 text-left">
-                <div className="flex items-center justify-between text-slate-400 text-xs font-semibold mb-2">
+              <div className="bg-slate-900/60 p-3 sm:p-4 rounded-xl border border-slate-800 text-left">
+                <div className="flex items-center justify-between text-slate-400 text-[10px] sm:text-xs font-semibold mb-1.5">
                   <span>TODAY'S CHORES</span>
                   <CheckSquare className="h-4 w-4 text-indigo-400" />
                 </div>
-                <div className="text-2xl font-bold text-white">82% Done</div>
+                <div className="text-xl sm:text-2xl font-bold text-white">82% Done</div>
                 <div className="text-[10px] text-indigo-400 font-semibold mt-1">8/10 tasks completed by staff</div>
               </div>
             </div>
@@ -162,18 +162,18 @@ export default function LandingPage() {
       </section>
 
       {/* CORE FEATURES */}
-      <section id="features" className="py-20 bg-slate-950/40 border-y border-slate-800/50">
+      <section id="features" className="py-12 sm:py-20 bg-slate-950/40 border-y border-slate-800/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-white">
+          <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-16">
+            <h2 className="text-2xl sm:text-4xl font-extrabold text-white">
               Complete Operations Control Panel
             </h2>
-            <p className="mt-4 text-slate-400">
+            <p className="mt-3 text-sm sm:text-base text-slate-400">
               Stop relying on spreadsheets and notes. DorionAnima SaaS brings together your entire facility under a single database.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-8">
             {/* Box 1 */}
             <div className="bg-slate-900/60 border border-slate-800/80 p-6 rounded-2xl hover:border-emerald-500/40 transition-all group">
               <div className="p-3 bg-emerald-500/10 rounded-xl text-emerald-400 w-fit group-hover:scale-110 transition-transform">
@@ -222,18 +222,18 @@ export default function LandingPage() {
       </section>
 
       {/* PEDIGREE HIGHLIGHT */}
-      <section id="pedigree" className="py-20 relative overflow-hidden">
+      <section id="pedigree" className="py-12 sm:py-20 relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 items-center">
             <div>
-              <div className="inline-flex items-center space-x-2 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 px-3 py-1 rounded-full text-xs font-semibold mb-4">
+              <div className="inline-flex items-center space-x-2 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 px-3 py-1 rounded-full text-[10px] sm:text-xs font-semibold mb-3 sm:mb-4">
                 <Layers className="h-3.5 w-3.5" />
                 <span>Recursive Self-Referencing Tables</span>
               </div>
-              <h2 className="text-3xl sm:text-4xl font-extrabold text-white leading-tight">
+              <h2 className="text-2xl sm:text-4xl font-extrabold text-white leading-tight">
                 Pedigree Tracking Made Simple
               </h2>
-              <p className="mt-4 text-slate-400 leading-relaxed">
+              <p className="mt-3 text-sm sm:text-base text-slate-400 leading-relaxed">
                 Our relational Postgres schema links animals directly back to their sires and dams. Track multi-generational lineage, OFA scores, and championship credentials without duplicating animal profiles.
               </p>
               
@@ -295,18 +295,18 @@ export default function LandingPage() {
       </section>
 
       {/* PRICING SECTION */}
-      <section id="pricing" className="py-20 bg-slate-950/40 border-t border-slate-800/50">
+      <section id="pricing" className="py-12 sm:py-20 bg-slate-950/40 border-t border-slate-800/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-3xl mx-auto mb-12">
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-white">
+          <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-12">
+            <h2 className="text-2xl sm:text-4xl font-extrabold text-white">
               One Flat Plan. Unlimited Power.
             </h2>
-            <p className="mt-4 text-slate-400 text-sm">
+            <p className="mt-3 text-slate-400 text-xs sm:text-sm">
               Try DorionAnima SaaS Standard free for 1 month. No risk, cancel online anytime.
             </p>
           </div>
 
-          <div className="max-w-xl mx-auto bg-slate-900 border-2 border-emerald-500/80 p-8 rounded-3xl relative shadow-xl shadow-emerald-500/5 text-left">
+          <div className="max-w-xl mx-auto bg-slate-900 border-2 border-emerald-500/80 p-5 sm:p-8 rounded-3xl relative shadow-xl shadow-emerald-500/5 text-left">
             <div className="absolute top-0 right-6 -translate-y-1/2 bg-emerald-500 text-slate-900 text-[9px] font-black uppercase tracking-widest px-3.5 py-1 rounded-full">
               Standard Package
             </div>
